@@ -7,9 +7,14 @@ const UseState = () => {
   const [a, setA] = useState(3)
   const [b, setB] = useState(4)
   
-  const sum = useCallback( () =>  a + b, [])
+  const sum = useCallback( () =>  {
+    message.success(a)
+    a + b
+  }, [])
 
-  const sum1 = () => a + b
+  const sumMemo = useMemo( () => {
+    return a + b
+  }, [])
 
   const showMessage = (fn) => {
     message.success(fn())
@@ -17,30 +22,43 @@ const UseState = () => {
 
   return (
     <Container>
-      <Header>A value</Header>
-      <InputWrapper>
-        <Input 
-          value={a}
-          onChange={(e) => setA(+e.target.value)}
-        />
-      </InputWrapper>
+      <Header>UseMemo vs UseCallback</Header>
       <Wrapper>
         <Column>
-          <Header>Use Callback</Header>
+          <Title>A Value</Title>
+          <InputWrapper>
+            <Input 
+              value={a}
+              onChange={(e) => setA(+e.target.value)}
+            />
+          </InputWrapper>
+        </Column>
+        <Column>
+          <Title>B Value</Title>
+          <InputWrapper>
+            <Input 
+              value={b}
+              onChange={(e) => setB(+e.target.value)}
+            />
+          </InputWrapper>
+        </Column>
+      </Wrapper>
+      <Wrapper>
+        <Column>
+          <Title>Use Callback</Title>
           <ButtonWrapper>
             <Button 
-              onClick={() => showMessage(sum)}>
+              onClick={() => sum()}>
               Button useCallback
             </Button>
           </ButtonWrapper>
         </Column>
         <Column>
-        <Header>No Use Callback</Header>
+        <Title>No Use Memo Value</Title>
           <ButtonWrapper>
-            <Button 
-              onClick={() => showMessage(sum1)}>
-              Button normal
-            </Button>
+            <Text align="center">
+              {sumMemo}
+            </Text>
           </ButtonWrapper>
         </Column>
       </Wrapper>
@@ -64,10 +82,16 @@ const Header = styled.h1`
   text-align: center;
 `;
 
+const Title = styled.h1`
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+`;
+
 const Text = styled.h2`
   font-size: 2.5rem;
+  margin-top: -15px;
   color: #448AFF;
-  margin: 30px;
   text-align: ${props => props.align};
 
   &:hover {
@@ -98,7 +122,7 @@ const ButtonWrapper = styled.div`
   width: 200px;
   height: 60px;
 `
-const Slide4 = () => {
+const Slide5 = () => {
 
   const scope = {
     styled,
@@ -115,7 +139,8 @@ const Slide4 = () => {
     InputWrapper,
     ButtonWrapper,
     Wrapper,
-    Column
+    Column,
+    Title
   }
 
   return (
@@ -130,4 +155,4 @@ const Slide4 = () => {
   );
 };
 
-export default Slide4;
+export default Slide5;

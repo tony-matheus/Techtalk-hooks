@@ -4,12 +4,12 @@ import { LiveProvider, LiveEditor, LivePreview } from "react-live";
 import { Button, Input, message } from 'antd' 
 const code = `
 const UseState = () => {
-  const [text, setText] = useState(' testando 123')
+  const [text, setText] = useState('Efeito')
 
-  useEffect(() => { message.success('Use Effect With Parameter'); })
-  useEffect(() => { message.error('Use Effect With Parameter'); }, [])
+  useEffect(() => { message.success('Use Effect Without Parameter'); })
+  useEffect(() => { message.error('Use Effect With []'); }, [])
   useEffect(() => { message.warning('Use Effect With Parameter'); }, [text])
-  useEffect(() => { return () => message.info('Use Effect With Parameter'); }, [])
+  useEffect(() => { return () => message.info('Use Effect With return'); }, [])
 
   return (
     <Container>

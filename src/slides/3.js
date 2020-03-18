@@ -5,18 +5,20 @@ import { Button, Input, message, notification } from 'antd'
 
 
 const code = `
-const UseState = () => {
-  const [apple, setApple] = useState('abc')
-  const [banana, setBanana] = useState('123')
+const UseMemo = () => {
+  const [apple, setApple] = useState('apple')
+  const [banana, setBanana] = useState('banana')
   
   const test = useMemo(
-    () => apple.split('').map(char => {
-      message.success(char)
+    () => apple.split('').map((char, i) => {
+      if(i == 0)
+        message.success(char)
       return char + ' '
     }), [apple])
 
-  const test2 = banana.split('').map(char => {
-    message.info(char)
+  const test2 = banana.split('').map((char, i) => {
+    if(i == 0)
+      message.info(char)
     return char + ' '
   })
 
@@ -57,7 +59,7 @@ const UseState = () => {
 }
 
 render(
-  <UseState/>
+  <UseMemo/>
 );`;
 
 const Container = styled.div`

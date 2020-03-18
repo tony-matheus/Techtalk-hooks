@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { LiveProvider, LiveEditor, LivePreview, LiveError } from "react-live";
-import {Button} from 'antd'
+import {Button as CustomButton, Input} from 'antd'
 
 const code = `
 const UseState = () => {
-  const [text, setState] = useState(' testando 123')
+  const [text, setText] = useState(' testando 123')
   const [isVisible, setIsVisible] = useState(false)
+  
   return (
     <Container>
       <Header>O que é?</Header>
@@ -15,6 +16,9 @@ const UseState = () => {
           {isVisible ? 'Esconder' : 'Aparecer'}
         </Button>
       </ButtonWrapper>
+      <Input 
+        value={text} 
+        onChange={(e) => setText(e.target.value)} />
       <Text align="center" isVisible={isVisible}>
         {text}
       </Text>
@@ -35,6 +39,7 @@ const Container = styled.div`
 const Header = styled.h1`
   font-size: 3rem;
   color: rgba(255, 255, 255, 0.8);
+  text-align: center;
 `;
 
 const Text = styled.h2`
@@ -55,10 +60,15 @@ const ButtonWrapper = styled.div`
   height: 60px;
 `
 
+const Button = styled(CustomButton)`
+  background-color: #282a36;
+  color: white;
+`
+
 const Slide1 = () => {
   return (
     <div className="slide slide-row slide-1">
-      <LiveProvider code={code} scope={{ styled, useState, Container, Header, Text, Button, ButtonWrapper }} noInline>
+      <LiveProvider code={code} scope={{ styled, useState, Container, Header, Input, Text, Button, ButtonWrapper }} noInline>
         <LivePreview className="code-preview" />
         <div className="code-editor-container">
           <LiveEditor className="code-editor" />
